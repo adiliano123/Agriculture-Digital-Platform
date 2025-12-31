@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Search, FilePlus, Pencil, Trash2, ChevronLeft, ChevronRight, Eye } from 'lucide-react';
 import { Badge } from "@/components/ui/badge";
+import { useLanguage } from '@/contexts/LanguageContext';
 
 type Content = {
   id: string;
@@ -16,6 +17,7 @@ type Content = {
 };
 
 export default function ManageContent() {
+  const { t } = useLanguage();
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;

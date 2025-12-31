@@ -12,9 +12,11 @@ import {
 } from "@/components/ui/select";
 import { Leaf, Eye, EyeOff } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Register = () => {
   const { toast } = useToast();
+  const { t } = useLanguage();
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -64,7 +66,7 @@ const Register = () => {
 
           {/* Header */}
           <div className="space-y-2">
-            <h1 className="text-3xl font-bold text-foreground">Create account</h1>
+            <h1 className="text-3xl font-bold text-foreground">{t.createAccount}</h1>
             <p className="text-muted-foreground">
               Join ADINAS and start growing your agricultural business
             </p>
@@ -78,7 +80,7 @@ const Register = () => {
                   htmlFor="firstName"
                   className="text-sm font-medium text-foreground"
                 >
-                  First Name
+                  {t.firstName}
                 </label>
                 <Input
                   id="firstName"
@@ -92,7 +94,7 @@ const Register = () => {
                   htmlFor="lastName"
                   className="text-sm font-medium text-foreground"
                 >
-                  Last Name
+                  {t.lastName}
                 </label>
                 <Input
                   id="lastName"
@@ -108,7 +110,7 @@ const Register = () => {
                 htmlFor="email"
                 className="text-sm font-medium text-foreground"
               >
-                Email
+                {t.email}
               </label>
               <Input
                 id="email"
@@ -160,7 +162,7 @@ const Register = () => {
                 htmlFor="password"
                 className="text-sm font-medium text-foreground"
               >
-                Password
+                {t.password}
               </label>
               <div className="relative">
                 <Input
@@ -208,15 +210,15 @@ const Register = () => {
               className="w-full"
               disabled={isSubmitting}
             >
-              {isSubmitting ? "Creating account..." : "Create account"}
+              {isSubmitting ? `${t.loading}` : t.createAccount}
             </Button>
           </form>
 
           {/* Login Link */}
           <p className="text-center text-muted-foreground">
-            Already have an account?{" "}
+            {t.alreadyHaveAccount}{" "}
             <Link to="/login" className="text-primary font-medium hover:underline">
-              Sign in
+              {t.signIn}
             </Link>
           </p>
         </div>

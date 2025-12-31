@@ -12,89 +12,86 @@ import {
   ArrowRight,
   Check,
 } from "lucide-react";
-
-const services = [
-  {
-    icon: Calculator,
-    title: "Agricultural Calculations",
-    description:
-      "Make accurate agricultural decisions with our comprehensive calculation tools.",
-    features: [
-      "Crop yield predictions",
-      "Fertilizer requirements calculator",
-      "Irrigation planning tools",
-      "Seed quantity estimator",
-      "Cost-benefit analysis",
-    ],
-  },
-  {
-    icon: Radio,
-    title: "Real-time Information",
-    description:
-      "Stay informed with up-to-date data that matters to your farming operations.",
-    features: [
-      "Live market prices",
-      "Weather forecasts",
-      "Pest and disease alerts",
-      "Agricultural news",
-      "Policy updates",
-    ],
-  },
-  {
-    icon: MessageCircle,
-    title: "Expert Advice",
-    description:
-      "Connect with experienced professionals for personalized agricultural guidance.",
-    features: [
-      "Extension officer consultations",
-      "Agronomist recommendations",
-      "Pest management advice",
-      "Crop rotation guidance",
-      "Best practices sharing",
-    ],
-  },
-  {
-    icon: ShoppingBag,
-    title: "Verified Suppliers",
-    description:
-      "Access a network of trusted suppliers for all your agricultural needs.",
-    features: [
-      "Certified seed suppliers",
-      "Quality fertilizer providers",
-      "Farm equipment dealers",
-      "Agrochemical companies",
-      "Irrigation system vendors",
-    ],
-  },
-  {
-    icon: Users,
-    title: "Network Connection",
-    description:
-      "Build valuable relationships across Tanzania's agricultural ecosystem.",
-    features: [
-      "Farmer groups",
-      "Dealer networks",
-      "Company partnerships",
-      "Extension officer connections",
-      "Cooperative linkages",
-    ],
-  },
-  {
-    icon: BarChart3,
-    title: "Analytics Dashboard",
-    description:
-      "Track performance and make data-driven decisions for your farm.",
-    features: [
-      "Production tracking",
-      "Sales analytics",
-      "Expense monitoring",
-      "Trend analysis",
-      "Performance reports",
-    ],
-  },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Services = () => {
+  const { t } = useLanguage();
+
+  const services = [
+    {
+      icon: Calculator,
+      title: t.agriculturalCalculations,
+      description: "Make accurate agricultural decisions with our comprehensive calculation tools.",
+      features: [
+        "Crop yield predictions",
+        "Fertilizer requirements calculator", 
+        "Irrigation planning tools",
+        "Seed quantity estimator",
+        "Cost-benefit analysis",
+      ],
+    },
+    {
+      icon: Radio,
+      title: t.realTimeInformation,
+      description: "Stay informed with up-to-date data that matters to your farming operations.",
+      features: [
+        "Live market prices",
+        "Weather forecasts",
+        "Pest and disease alerts",
+        "Agricultural news",
+        "Policy updates",
+      ],
+    },
+    {
+      icon: MessageCircle,
+      title: t.expertAdvice,
+      description: "Connect with experienced professionals for personalized agricultural guidance.",
+      features: [
+        "Extension officer consultations",
+        "Agronomist recommendations",
+        "Pest management advice",
+        "Crop rotation guidance",
+        "Best practices sharing",
+      ],
+    },
+    {
+      icon: ShoppingBag,
+      title: t.verifiedSuppliers,
+      description: "Access a network of trusted suppliers for all your agricultural needs.",
+      features: [
+        "Certified seed suppliers",
+        "Quality fertilizer providers",
+        "Farm equipment dealers",
+        "Agrochemical companies",
+        "Irrigation system vendors",
+      ],
+    },
+    {
+      icon: Users,
+      title: t.networkConnection,
+      description: "Build valuable relationships across Tanzania's agricultural ecosystem.",
+      features: [
+        "Farmer groups",
+        "Dealer networks",
+        "Company partnerships",
+        "Extension officer connections",
+        "Cooperative linkages",
+      ],
+    },
+    {
+      icon: BarChart3,
+      title: t.analyticsDashboard,
+      description: "Track performance and make data-driven decisions for your farm.",
+      features: [
+        "Production tracking",
+        "Sales analytics",
+        "Expense monitoring",
+        "Trend analysis",
+        "Performance reports",
+      ],
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -104,14 +101,13 @@ const Services = () => {
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto text-center space-y-6">
               <span className="inline-block px-4 py-1.5 rounded-full bg-primary-foreground/10 text-primary-foreground text-sm font-medium">
-                Our Services
+                {t.ourServices}
               </span>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground">
-                Comprehensive Agricultural Solutions
+                {t.comprehensiveAgriSolutions}
               </h1>
               <p className="text-lg md:text-xl text-primary-foreground/80 leading-relaxed">
-                Discover the tools and resources designed to help you succeed in 
-                Tanzania's agricultural sector.
+                {t.servicesHeroDesc}
               </p>
             </div>
           </div>
@@ -169,15 +165,14 @@ const Services = () => {
           <div className="container mx-auto px-4">
             <div className="max-w-2xl mx-auto text-center space-y-6">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-                Ready to Get Started?
+                {t.readyToGetStarted}
               </h2>
               <p className="text-lg text-muted-foreground">
-                Join ADINAS today and access all these powerful features to grow 
-                your agricultural business.
+                {t.joinAdinasToday}
               </p>
               <Button variant="hero" size="xl" asChild>
                 <Link to="/register">
-                  Create Your Account
+                  {t.createYourAccount}
                   <ArrowRight className="w-5 h-5" />
                 </Link>
               </Button>

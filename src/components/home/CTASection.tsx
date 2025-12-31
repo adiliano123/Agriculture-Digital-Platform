@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const CTASection = () => {
+  const { t } = useLanguage();
+
   return (
     <section className="py-20 md:py-28 bg-background">
       <div className="container mx-auto px-4">
@@ -18,17 +21,16 @@ const CTASection = () => {
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-foreground/10 backdrop-blur-sm border border-primary-foreground/20">
               <Sparkles className="w-4 h-4 text-accent" />
               <span className="text-sm font-medium text-primary-foreground">
-                Join the Agricultural Revolution
+                {t.joinAgriculturalRevolution}
               </span>
             </div>
 
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary-foreground">
-              Ready to Transform Your Agricultural Business?
+              {t.readyToTransform}
             </h2>
 
             <p className="text-lg text-primary-foreground/80 max-w-xl mx-auto">
-              Join thousands of farmers, dealers, and companies already using ADINAS 
-              to improve their productivity and connect with the right partners.
+              {t.joinThousands}
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
@@ -39,7 +41,7 @@ const CTASection = () => {
                 asChild
               >
                 <Link to="/register">
-                  Create Free Account
+                  {t.createFreeAccount}
                   <ArrowRight className="w-5 h-5" />
                 </Link>
               </Button>
@@ -49,7 +51,7 @@ const CTASection = () => {
                 className="w-full sm:w-auto border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 hover:text-primary-foreground"
                 asChild
               >
-                <Link to="/contact">Contact Sales</Link>
+                <Link to="/contact">{t.contactSales}</Link>
               </Button>
             </div>
           </div>

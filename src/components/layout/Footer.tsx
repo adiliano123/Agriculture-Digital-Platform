@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
 import { Leaf, Mail, Phone, MapPin } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Footer = () => {
+  const { t } = useLanguage();
+
   return (
     <footer className="bg-card border-t border-border">
       <div className="container mx-auto px-4 py-12 md:py-16">
@@ -22,18 +25,33 @@ const Footer = () => {
           {/* Quick Links */}
           <div className="space-y-4">
             <h4 className="text-sm font-semibold text-foreground uppercase tracking-wider">
-              Quick Links
+              {t.quickLinks}
             </h4>
             <nav className="flex flex-col gap-2">
-              {["Home", "About", "Services", "Contact"].map((item) => (
-                <Link
-                  key={item}
-                  to={item === "Home" ? "/" : `/${item.toLowerCase()}`}
-                  className="text-muted-foreground hover:text-primary transition-colors text-sm"
-                >
-                  {item}
-                </Link>
-              ))}
+              <Link
+                to="/"
+                className="text-muted-foreground hover:text-primary transition-colors text-sm"
+              >
+                {t.home}
+              </Link>
+              <Link
+                to="/about"
+                className="text-muted-foreground hover:text-primary transition-colors text-sm"
+              >
+                {t.about}
+              </Link>
+              <Link
+                to="/services"
+                className="text-muted-foreground hover:text-primary transition-colors text-sm"
+              >
+                {t.services}
+              </Link>
+              <Link
+                to="/contact"
+                className="text-muted-foreground hover:text-primary transition-colors text-sm"
+              >
+                {t.contact}
+              </Link>
             </nav>
           </div>
 

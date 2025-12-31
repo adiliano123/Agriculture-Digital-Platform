@@ -5,9 +5,11 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Leaf, Eye, EyeOff } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Login = () => {
   const { toast } = useToast();
+  const { t } = useLanguage();
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -41,7 +43,7 @@ const Login = () => {
 
           {/* Header */}
           <div className="space-y-2">
-            <h1 className="text-3xl font-bold text-foreground">Welcome back</h1>
+            <h1 className="text-3xl font-bold text-foreground">{t.welcome}</h1>
             <p className="text-muted-foreground">
               Enter your credentials to access your account
             </p>
@@ -54,7 +56,7 @@ const Login = () => {
                 htmlFor="email"
                 className="text-sm font-medium text-foreground"
               >
-                Email
+                {t.email}
               </label>
               <Input
                 id="email"
@@ -70,7 +72,7 @@ const Login = () => {
                 htmlFor="password"
                 className="text-sm font-medium text-foreground"
               >
-                Password
+                {t.password}
               </label>
               <div className="relative">
                 <Input
@@ -101,14 +103,14 @@ const Login = () => {
                   htmlFor="remember"
                   className="text-sm text-muted-foreground cursor-pointer"
                 >
-                  Remember me
+                  {t.rememberMe}
                 </label>
               </div>
               <Link
                 to="/forgot-password"
                 className="text-sm text-primary hover:underline"
               >
-                Forgot password?
+                {t.forgotPassword}
               </Link>
             </div>
 
@@ -119,15 +121,15 @@ const Login = () => {
               className="w-full"
               disabled={isSubmitting}
             >
-              {isSubmitting ? "Signing in..." : "Sign in"}
+              {isSubmitting ? `${t.loading}` : t.signIn}
             </Button>
           </form>
 
           {/* Register Link */}
           <p className="text-center text-muted-foreground">
-            Don't have an account?{" "}
+            {t.dontHaveAccount}{" "}
             <Link to="/register" className="text-primary font-medium hover:underline">
-              Create account
+              {t.createAccount}
             </Link>
           </p>
         </div>

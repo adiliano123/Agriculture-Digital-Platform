@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Search, UserPlus, Pencil, Trash2, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 type User = {
   id: string;
@@ -14,6 +15,7 @@ type User = {
 };
 
 export default function ManageUsers() {
+  const { t } = useLanguage();
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const usersPerPage = 5;
@@ -56,10 +58,10 @@ export default function ManageUsers() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
-        <h1 className="text-3xl font-bold">Manage Users</h1>
+        <h1 className="text-3xl font-bold">{t.manageUsers}</h1>
         <Button>
           <UserPlus className="mr-2 h-4 w-4" />
-          Add New User
+          {t.addNewUser}
         </Button>
       </div>
 
@@ -68,7 +70,7 @@ export default function ManageUsers() {
           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
           <Input
             type="search"
-            placeholder="Search users..."
+            placeholder={t.searchUsers}
             className="pl-8 w-full md:w-[300px]"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -80,12 +82,12 @@ export default function ManageUsers() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Name</TableHead>
-              <TableHead>Email</TableHead>
-              <TableHead>Role</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Last Login</TableHead>
-              <TableHead className="text-right">Actions</TableHead>
+              <TableHead>{t.name}</TableHead>
+              <TableHead>{t.email}</TableHead>
+              <TableHead>{t.role}</TableHead>
+              <TableHead>{t.status}</TableHead>
+              <TableHead>{t.lastLogin}</TableHead>
+              <TableHead className="text-right">{t.actions}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -117,9 +119,9 @@ export default function ManageUsers() {
                       value={user.status}
                       onChange={(e) => handleStatusChange(user.id, e.target.value as User['status'])}
                     >
-                      <option value="active">Active</option>
-                      <option value="inactive">Inactive</option>
-                      <option value="suspended">Suspended</option>
+                      <option value="active">{t.active}</option>
+                      <option value="inactive">{t.inactive}</option>
+                      <option value="suspended">{t.suspended}</option>
                     </select>
                   </TableCell>
                   <TableCell>{new Date(user.lastLogin).toLocaleString()}</TableCell>
@@ -136,7 +138,7 @@ export default function ManageUsers() {
             ) : (
               <TableRow>
                 <TableCell colSpan={6} className="text-center py-8 text-muted-foreground">
-                  No users found
+                  {t.noUsersFound}
                 </TableCell>
               </TableRow>
             )}
@@ -156,7 +158,7 @@ export default function ManageUsers() {
             <ChevronLeft className="h-4 w-4" />
           </Button>
           <span className="text-sm">
-            Page {currentPage} of {totalPages}
+            {t.page} {currentPage} {t.of} {totalPages}
           </span>
           <Button
             variant="outline"

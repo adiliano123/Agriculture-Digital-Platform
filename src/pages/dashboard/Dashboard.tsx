@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/components/ui/use-toast';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 // Mock user data - in a real app, this would come from an API
 const mockUser = {
@@ -17,6 +18,7 @@ const mockUser = {
 
 export default function Dashboard() {
   const { toast } = useToast();
+  const { t } = useLanguage();
   const [user, setUser] = useState(mockUser);
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState(user);
@@ -33,44 +35,44 @@ export default function Dashboard() {
     setUser(formData);
     setIsEditing(false);
     toast({
-      title: "Profile updated",
-      description: "Your profile has been updated successfully.",
+      title: t.profileUpdated,
+      description: t.profileUpdatedDesc,
     });
   };
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8">Dashboard</h1>
+      <h1 className="text-3xl font-bold mb-8">{t.dashboard}</h1>
       
       <Tabs defaultValue="profile" className="w-full">
         <TabsList className="grid w-full grid-cols-3 mb-8">
-          <TabsTrigger value="profile">My Profile</TabsTrigger>
-          <TabsTrigger value="services">Available Services</TabsTrigger>
-          <TabsTrigger value="activity">Activity</TabsTrigger>
+          <TabsTrigger value="profile">{t.myProfile}</TabsTrigger>
+          <TabsTrigger value="services">{t.availableServices}</TabsTrigger>
+          <TabsTrigger value="activity">{t.activity}</TabsTrigger>
         </TabsList>
 
         <TabsContent value="profile">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between">
-              <CardTitle>Personal Information</CardTitle>
+              <CardTitle>{t.personalInformation}</CardTitle>
               {!isEditing ? (
-                <Button onClick={() => setIsEditing(true)}>Edit Profile</Button>
+                <Button onClick={() => setIsEditing(true)}>{t.editProfile}</Button>
               ) : (
                 <div className="space-x-2">
                   <Button variant="outline" onClick={() => {
                     setFormData(user);
                     setIsEditing(false);
                   }}>
-                    Cancel
+                    {t.cancel}
                   </Button>
-                  <Button onClick={handleSave}>Save Changes</Button>
+                  <Button onClick={handleSave}>{t.saveChanges}</Button>
                 </div>
               )}
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="name">Full Name</Label>
+                  <Label htmlFor="name">{t.fullName}</Label>
                   {isEditing ? (
                     <Input
                       id="name"
@@ -83,7 +85,7 @@ export default function Dashboard() {
                   )}
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
+                  <Label htmlFor="email">{t.email}</Label>
                   {isEditing ? (
                     <Input
                       id="email"
@@ -97,7 +99,7 @@ export default function Dashboard() {
                   )}
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="phone">Phone</Label>
+                  <Label htmlFor="phone">{t.phone}</Label>
                   {isEditing ? (
                     <Input
                       id="phone"
@@ -110,7 +112,7 @@ export default function Dashboard() {
                   )}
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="address">Address</Label>
+                  <Label htmlFor="address">{t.address}</Label>
                   {isEditing ? (
                     <Input
                       id="address"
@@ -130,7 +132,7 @@ export default function Dashboard() {
         <TabsContent value="services">
           <Card>
             <CardHeader>
-              <CardTitle>Available Services</CardTitle>
+              <CardTitle>{t.availableServices}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -149,7 +151,7 @@ export default function Dashboard() {
                     <CardContent>
                       <p className="text-sm text-gray-600">{service.description}</p>
                       <Button className="mt-4" variant="outline">
-                        View Details
+                        {t.viewDetails}
                       </Button>
                     </CardContent>
                   </Card>
@@ -162,7 +164,7 @@ export default function Dashboard() {
         <TabsContent value="activity">
           <Card>
             <CardHeader>
-              <CardTitle>Recent Activity</CardTitle>
+              <CardTitle>{t.recentActivity}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">

@@ -1,15 +1,18 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { CheckCircle, ArrowRight } from "lucide-react";
-
-const features = [
-  "Connect with verified agricultural suppliers",
-  "Access expert advice from extension officers",
-  "Real-time market prices and weather updates",
-  "Comprehensive farm management tools",
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const AboutPreview = () => {
+  const { t } = useLanguage();
+
+  const features = [
+    t.connectWithVerifiedSuppliers,
+    t.accessExpertAdvice,
+    t.realTimeMarketPrices,
+    t.comprehensiveFarmTools,
+  ];
+
   return (
     <section className="py-20 md:py-28 bg-card">
       <div className="container mx-auto px-4">
@@ -43,17 +46,13 @@ const AboutPreview = () => {
           {/* Content */}
           <div className="space-y-6">
             <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium">
-              About ADINAS
+              {t.aboutAdinas}
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-              Transforming Tanzania's Agricultural Ecosystem
+              {t.transformingTanzaniaAgriculture}
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed">
-              ADINAS is a comprehensive digital platform designed to bridge the gap 
-              between farmers, extension officers, agri dealers, and agricultural 
-              companies across Tanzania. Our mission is to improve productivity, 
-              enhance information access, and foster collaboration throughout the 
-              agricultural value chain.
+              {t.adinasDescription}
             </p>
 
             {/* Features List */}
@@ -68,7 +67,7 @@ const AboutPreview = () => {
 
             <Button variant="default" size="lg" asChild>
               <Link to="/about">
-                Learn More About Us
+                {t.learnMoreAboutUs}
                 <ArrowRight className="w-5 h-5" />
               </Link>
             </Button>

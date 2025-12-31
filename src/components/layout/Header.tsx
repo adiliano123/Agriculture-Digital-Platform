@@ -2,16 +2,19 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Leaf } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
+import LanguageSwitch from "@/components/LanguageSwitch";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const { t } = useLanguage();
 
   const navLinks = [
-    { name: "Home", path: "/" },
-    { name: "About", path: "/about" },
-    { name: "Services", path: "/services" },
-    { name: "Contact", path: "/contact" },
+    { name: t.home, path: "/" },
+    { name: t.about, path: "/about" },
+    { name: t.services, path: "/services" },
+    { name: t.contact, path: "/contact" },
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -47,11 +50,12 @@ const Header = () => {
 
           {/* Desktop Auth Buttons */}
           <div className="hidden md:flex items-center gap-3">
+            <LanguageSwitch />
             <Button variant="ghost" asChild>
-              <Link to="/login">Login</Link>
+              <Link to="/login">{t.login}</Link>
             </Button>
             <Button variant="default" asChild>
-              <Link to="/register">Get Started</Link>
+              <Link to="/register">{t.register}</Link>
             </Button>
           </div>
 
@@ -88,14 +92,15 @@ const Header = () => {
                 </Link>
               ))}
               <div className="flex flex-col gap-2 pt-4 border-t border-border mt-2">
+                <LanguageSwitch />
                 <Button variant="outline" asChild>
                   <Link to="/login" onClick={() => setIsMenuOpen(false)}>
-                    Login
+                    {t.login}
                   </Link>
                 </Button>
                 <Button variant="default" asChild>
                   <Link to="/register" onClick={() => setIsMenuOpen(false)}>
-                    Get Started
+                    {t.register}
                   </Link>
                 </Button>
               </div>

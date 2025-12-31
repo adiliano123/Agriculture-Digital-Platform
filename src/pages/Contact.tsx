@@ -6,9 +6,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, MapPin, Clock, Send } from "lucide-react";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Contact = () => {
   const { toast } = useToast();
+  const { t } = useLanguage();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -19,8 +21,8 @@ const Contact = () => {
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
     toast({
-      title: "Message Sent!",
-      description: "We'll get back to you as soon as possible.",
+      title: t.messageSent,
+      description: t.getBackToYou,
     });
 
     setIsSubmitting(false);
@@ -36,10 +38,10 @@ const Contact = () => {
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto text-center space-y-6">
               <span className="inline-block px-4 py-1.5 rounded-full bg-primary-foreground/10 text-primary-foreground text-sm font-medium">
-                Contact Us
+                {t.contactUs}
               </span>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground">
-                Get In Touch
+                {t.getInTouch}
               </h1>
               <p className="text-lg md:text-xl text-primary-foreground/80 leading-relaxed">
                 Have questions or need assistance? We're here to help you succeed 
@@ -57,11 +59,10 @@ const Contact = () => {
               <div className="space-y-8">
                 <div>
                   <h2 className="text-3xl font-bold text-foreground mb-4">
-                    Contact Information
+                    {t.contactInformation}
                   </h2>
                   <p className="text-muted-foreground text-lg">
-                    Reach out to us through any of these channels. We typically 
-                    respond within 24 hours.
+                    {t.reachOutToUs}
                   </p>
                 </div>
 
@@ -71,7 +72,7 @@ const Contact = () => {
                       <MapPin className="w-6 h-6 text-primary-foreground" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-foreground mb-1">Address</h3>
+                      <h3 className="font-semibold text-foreground mb-1">{t.address}</h3>
                       <p className="text-muted-foreground">
                         Dar es Salaam, Tanzania<br />
                         Mikocheni Area, Plot 123
@@ -84,7 +85,7 @@ const Contact = () => {
                       <Phone className="w-6 h-6 text-primary-foreground" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-foreground mb-1">Phone</h3>
+                      <h3 className="font-semibold text-foreground mb-1">{t.phone}</h3>
                       <p className="text-muted-foreground">
                         +255 123 456 789<br />
                         +255 987 654 321
@@ -97,7 +98,7 @@ const Contact = () => {
                       <Mail className="w-6 h-6 text-primary-foreground" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-foreground mb-1">Email</h3>
+                      <h3 className="font-semibold text-foreground mb-1">{t.email}</h3>
                       <p className="text-muted-foreground">
                         info@adinas.co.tz<br />
                         support@adinas.co.tz
@@ -111,7 +112,7 @@ const Contact = () => {
                     </div>
                     <div>
                       <h3 className="font-semibold text-foreground mb-1">
-                        Business Hours
+                        {t.businessHours}
                       </h3>
                       <p className="text-muted-foreground">
                         Monday - Friday: 8:00 AM - 6:00 PM<br />
@@ -125,7 +126,7 @@ const Contact = () => {
               {/* Contact Form */}
               <div className="p-8 rounded-2xl bg-card border border-border shadow-soft">
                 <h2 className="text-2xl font-bold text-foreground mb-6">
-                  Send Us a Message
+                  {t.sendUsAMessage}
                 </h2>
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -134,7 +135,7 @@ const Contact = () => {
                         htmlFor="firstName"
                         className="text-sm font-medium text-foreground"
                       >
-                        First Name
+                        {t.firstName}
                       </label>
                       <Input
                         id="firstName"
@@ -148,7 +149,7 @@ const Contact = () => {
                         htmlFor="lastName"
                         className="text-sm font-medium text-foreground"
                       >
-                        Last Name
+                        {t.lastName}
                       </label>
                       <Input
                         id="lastName"
@@ -164,7 +165,7 @@ const Contact = () => {
                       htmlFor="email"
                       className="text-sm font-medium text-foreground"
                     >
-                      Email
+                      {t.email}
                     </label>
                     <Input
                       id="email"
@@ -180,7 +181,7 @@ const Contact = () => {
                       htmlFor="phone"
                       className="text-sm font-medium text-foreground"
                     >
-                      Phone (Optional)
+                      {t.phone} (Optional)
                     </label>
                     <Input
                       id="phone"
@@ -195,7 +196,7 @@ const Contact = () => {
                       htmlFor="message"
                       className="text-sm font-medium text-foreground"
                     >
-                      Message
+                      {t.message}
                     </label>
                     <Textarea
                       id="message"
@@ -214,10 +215,10 @@ const Contact = () => {
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? (
-                      "Sending..."
+                      t.sending
                     ) : (
                       <>
-                        Send Message
+                        {t.sendMessage}
                         <Send className="w-5 h-5" />
                       </>
                     )}

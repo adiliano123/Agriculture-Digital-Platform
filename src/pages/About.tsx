@@ -1,35 +1,34 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { Target, Eye, Users, Award } from "lucide-react";
-
-const values = [
-  {
-    icon: Target,
-    title: "Mission",
-    description:
-      "To empower Tanzania's agricultural community with digital tools that improve productivity, enhance access to information, and foster meaningful connections across the value chain.",
-  },
-  {
-    icon: Eye,
-    title: "Vision",
-    description:
-      "To be the leading agricultural digital platform in East Africa, driving innovation and sustainability in farming practices while creating prosperity for all stakeholders.",
-  },
-  {
-    icon: Users,
-    title: "Community",
-    description:
-      "Building a network of farmers, extension officers, dealers, and companies who collaborate, share knowledge, and grow together for mutual benefit.",
-  },
-  {
-    icon: Award,
-    title: "Excellence",
-    description:
-      "Committed to delivering high-quality services, verified products, and expert advice that our users can trust and rely upon for their agricultural success.",
-  },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const About = () => {
+  const { t } = useLanguage();
+
+  const values = [
+    {
+      icon: Target,
+      title: t.mission,
+      description: t.missionDesc,
+    },
+    {
+      icon: Eye,
+      title: t.vision,
+      description: t.visionDesc,
+    },
+    {
+      icon: Users,
+      title: t.community,
+      description: t.communityDesc,
+    },
+    {
+      icon: Award,
+      title: t.excellence,
+      description: t.excellenceDesc,
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -39,15 +38,13 @@ const About = () => {
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto text-center space-y-6">
               <span className="inline-block px-4 py-1.5 rounded-full bg-primary-foreground/10 text-primary-foreground text-sm font-medium">
-                About Us
+                {t.aboutUs}
               </span>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground">
-                Building the Future of Agriculture in Tanzania
+                {t.aboutHeroTitle}
               </h1>
               <p className="text-lg md:text-xl text-primary-foreground/80 leading-relaxed">
-                ADINAS connects extension officers, agri dealers, and agri companies 
-                in one unified system, revolutionizing how agricultural information 
-                flows and business is conducted.
+                {t.aboutHeroDesc}
               </p>
             </div>
           </div>
@@ -58,25 +55,17 @@ const About = () => {
           <div className="container mx-auto px-4">
             <div className="max-w-3xl mx-auto space-y-8">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center">
-                Our Story
+                {t.ourStory}
               </h2>
               <div className="prose prose-lg mx-auto text-muted-foreground">
                 <p className="text-lg leading-relaxed">
-                  ADINAS was born from a simple observation: Tanzania's agricultural 
-                  sector, despite its immense potential, faced significant challenges 
-                  in information access, collaboration, and connecting with verified 
-                  suppliers.
+                  {t.aboutStoryP1}
                 </p>
                 <p className="text-lg leading-relaxed">
-                  Farmers struggled to get timely advice, dealers found it hard to 
-                  reach their customers, and extension officers lacked the tools to 
-                  effectively serve their communities. We saw an opportunity to 
-                  create a digital bridge that would unite these stakeholders.
+                  {t.aboutStoryP2}
                 </p>
                 <p className="text-lg leading-relaxed">
-                  Today, ADINAS serves thousands of users across Tanzania, providing 
-                  real-time agricultural information, expert advice, calculation tools, 
-                  and direct connections to verified suppliers of agricultural inputs.
+                  {t.aboutStoryP3}
                 </p>
               </div>
             </div>
@@ -88,7 +77,7 @@ const About = () => {
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-                Our Values
+                {t.ourValues}
               </h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

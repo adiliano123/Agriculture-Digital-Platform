@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { BarChart, LineChart, PieChart, Download } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 import {
   BarChart as RechartsBarChart,
   Bar,

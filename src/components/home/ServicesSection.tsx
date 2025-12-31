@@ -1,46 +1,49 @@
 import { Calculator, MessageCircle, ShoppingBag, Radio, Users, BarChart3 } from "lucide-react";
-
-const services = [
-  {
-    icon: Calculator,
-    title: "Agricultural Calculations",
-    description: "Perform accurate crop yield predictions, fertilizer requirements, and resource planning calculations.",
-  },
-  {
-    icon: Radio,
-    title: "Real-time Information",
-    description: "Access up-to-date market prices, weather forecasts, and agricultural news from trusted sources.",
-  },
-  {
-    icon: MessageCircle,
-    title: "Expert Advice",
-    description: "Connect with experienced extension officers and agricultural experts for personalized guidance.",
-  },
-  {
-    icon: ShoppingBag,
-    title: "Verified Suppliers",
-    description: "Find trusted suppliers of seeds, fertilizers, and agricultural equipment in your region.",
-  },
-  {
-    icon: Users,
-    title: "Network Connection",
-    description: "Build relationships with farmers, dealers, and companies across Tanzania's agricultural sector.",
-  },
-  {
-    icon: BarChart3,
-    title: "Analytics Dashboard",
-    description: "Track your farm's performance, monitor trends, and make data-driven decisions.",
-  },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const ServicesSection = () => {
+  const { t } = useLanguage();
+
+  const services = [
+    {
+      icon: Calculator,
+      title: t.agriculturalCalculations,
+      description: "Perform accurate crop yield predictions, fertilizer requirements, and resource planning calculations.",
+    },
+    {
+      icon: Radio,
+      title: t.realTimeInformation,
+      description: "Access up-to-date market prices, weather forecasts, and agricultural news from trusted sources.",
+    },
+    {
+      icon: MessageCircle,
+      title: t.expertAdvice,
+      description: "Connect with experienced extension officers and agricultural experts for personalized guidance.",
+    },
+    {
+      icon: ShoppingBag,
+      title: t.verifiedSuppliers,
+      description: "Find trusted suppliers of seeds, fertilizers, and agricultural equipment in your region.",
+    },
+    {
+      icon: Users,
+      title: t.networkConnection,
+      description: "Build relationships with farmers, dealers, and companies across Tanzania's agricultural sector.",
+    },
+    {
+      icon: BarChart3,
+      title: t.analyticsDashboard,
+      description: "Track your farm's performance, monitor trends, and make data-driven decisions.",
+    },
+  ];
+
   return (
     <section className="py-20 md:py-28 bg-background">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="max-w-2xl mx-auto text-center mb-16">
           <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
-            Our Services
+            {t.ourServices}
           </span>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Everything You Need to Succeed

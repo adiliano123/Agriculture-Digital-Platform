@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Users, TrendingUp, Shield } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 import heroImage from "@/assets/hero-agriculture.jpg";
 
 const HeroSection = () => {
+  const { t } = useLanguage();
+  
   return (
     <section className="relative min-h-screen flex items-center pt-20">
       {/* Background Image */}
@@ -26,7 +29,7 @@ const HeroSection = () => {
           >
             <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
             <span className="text-sm font-medium text-primary-foreground">
-              Tanzania's Agricultural Network
+              {t.tanzaniaNetwork}
             </span>
           </div>
 
@@ -35,8 +38,8 @@ const HeroSection = () => {
             className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground leading-tight animate-slide-up"
             style={{ animationDelay: "0.2s", opacity: 0 }}
           >
-            Connecting{" "}
-            <span className="text-accent">Agriculture</span>{" "}
+            {t.heroTitle}{" "}
+            <span className="text-accent">{t.heroSubtitle}</span>{" "}
             for a Better Tomorrow
           </h1>
 
@@ -45,9 +48,7 @@ const HeroSection = () => {
             className="text-lg md:text-xl text-primary-foreground/80 leading-relaxed animate-slide-up"
             style={{ animationDelay: "0.3s", opacity: 0 }}
           >
-            ADINAS connects extension officers, agri dealers, and agri companies 
-            in one powerful system. Access real-time information, expert advice, 
-            and verified agricultural inputs to boost productivity.
+            {t.heroDescription}
           </p>
 
           {/* CTA Buttons */}
