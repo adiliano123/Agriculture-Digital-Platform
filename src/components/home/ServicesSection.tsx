@@ -38,18 +38,29 @@ const ServicesSection = () => {
   ];
 
   return (
-    <section className="py-20 md:py-28 bg-background">
-      <div className="container mx-auto px-4">
+    <section className="py-20 md:py-28 relative bg-background">
+      {/* Background Image with Overlay */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: "url('/src/assets/hero-agriculture.jpg')",
+        }}
+      >
+        <div className="absolute inset-0 bg-background/90 backdrop-blur-sm"></div>
+      </div>
+      
+      {/* Content */}
+      <div className="container mx-auto px-4 relative z-10">
         {/* Header */}
         <div className="max-w-2xl mx-auto text-center mb-16">
           <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
             {t.ourServices}
           </span>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Everything You Need to Succeed
+            {t.comprehensiveAgriSolutions}
           </h2>
           <p className="text-muted-foreground text-lg">
-            Comprehensive tools and resources designed to empower Tanzania's agricultural community.
+            {t.servicesHeroDesc}
           </p>
         </div>
 

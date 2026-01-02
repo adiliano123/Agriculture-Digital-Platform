@@ -8,20 +8,77 @@ const HeroSection = () => {
   const { t } = useLanguage();
   
   return (
-    <section className="relative min-h-screen flex items-center pt-20">
-      {/* Background Image */}
+    <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
+      {/* Background Image with Parallax Effect */}
       <div className="absolute inset-0 z-0">
         <img
           src={heroImage}
           alt="Tanzania agricultural landscape"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover transition-transform duration-75 ease-out will-change-transform"
+          style={{
+            transform: `translateY(${scrollY * 0.5}px) scale(${1.1 + scrollY * 0.0001})`,
+          }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-foreground/90 via-foreground/70 to-foreground/40" />
+        <div 
+          className="absolute inset-0 bg-gradient-to-r from-foreground/90 via-foreground/70 to-foreground/40 transition-opacity duration-300"
+          style={{
+            opacity: Math.max(0.4, 1 - scrollY * 0.001),
+          }}
+        />
       </div>
 
-      {/* Content */}
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="max-w-2xl space-y-8">
+      {/* Floating Elements for Enhanced Parallax */}
+      <div className="absolute inset-0 z-5 pointer-events-none">
+        {/* Floating particles with different speeds */}
+        <div 
+          className="absolute top-1/4 left-1/4 w-2 h-2 bg-accent/30 rounded-full animate-pulse"
+          style={{
+            transform: `translateY(${scrollY * 0.3}px) translateX(${scrollY * 0.1}px)`,
+          }}
+        />
+        <div 
+          className="absolute top-1/3 right-1/3 w-3 h-3 bg-primary/20 rounded-full animate-pulse"
+          style={{
+            transform: `translateY(${scrollY * 0.4}px) translateX(${-scrollY * 0.15}px)`,
+            animationDelay: '1s'
+          }}
+        />
+        <div 
+          className="absolute bottom-1/3 left-1/3 w-1 h-1 bg-accent/40 rounded-full animate-pulse"
+          style={{
+            transform: `translateY(${scrollY * 0.2}px) translateX(${scrollY * 0.05}px)`,
+            animationDelay: '2s'
+          }}
+        />
+        <div 
+          className="absolute top-1/2 right-1/4 w-2 h-2 bg-primary/15 rounded-full animate-pulse"
+          style={{
+            transform: `translateY(${scrollY * 0.35}px) translateX(${scrollY * 0.08}px)`,
+            animationDelay: '0.5s'
+          }}
+        />
+        <div 
+          className="absolute bottom-1/4 right-1/2 w-1 h-1 bg-accent/25 rounded-full animate-pulse"
+          style={{
+            transform: `translateY(${scrollY * 0.25}px) translateX(${-scrollY * 0.12}px)`,
+            animationDelay: '1.5s'
+          }}
+        />
+      </div>
+
+      {/* Content with Counter-Parallax */}
+      <div 
+        className="container mx-auto px-4 relative z-10"
+        style={{
+          transform: `translateY(${scrollY * 0.1}px)`,
+        }}
+      >
+        <div 
+          className="max-w-2xl space-y-8"
+          style={{
+            transform: `translateY(${-scrollY * 0.05}px)`,
+          }}
+        >
           {/* Badge */}
           <div
             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/20 backdrop-blur-sm border border-primary/30 animate-fade-in"

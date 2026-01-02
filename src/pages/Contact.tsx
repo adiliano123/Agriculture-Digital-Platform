@@ -34,16 +34,28 @@ const Contact = () => {
       <Header />
       <main className="pt-20">
         {/* Hero */}
-        <section className="py-20 md:py-28 gradient-hero">
-          <div className="container mx-auto px-4">
+        <section className="relative py-20 md:py-28 overflow-hidden min-h-[60vh]">
+          {/* Background Image */}
+          <div 
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-105 transition-transform duration-700 hover:scale-110"
+            style={{
+              backgroundImage: "url('/src/assets/hero-agriculture.jpg')",
+            }}
+          />
+          {/* Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/40 to-secondary/40" />
+          {/* Additional subtle overlay for better text contrast */}
+          <div className="absolute inset-0 bg-black/10" />
+          
+          <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-3xl mx-auto text-center space-y-6">
-              <span className="inline-block px-4 py-1.5 rounded-full bg-primary-foreground/10 text-primary-foreground text-sm font-medium">
+              <span className="inline-block px-4 py-1.5 rounded-full bg-white/30 backdrop-blur-md text-white text-sm font-medium border border-white/40 shadow-lg">
                 {t.contactUs}
               </span>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white drop-shadow-2xl [text-shadow:_2px_2px_4px_rgb(0_0_0_/_50%)]">
                 {t.getInTouch}
               </h1>
-              <p className="text-lg md:text-xl text-primary-foreground/80 leading-relaxed">
+              <p className="text-lg md:text-xl text-white/95 leading-relaxed drop-shadow-lg [text-shadow:_1px_1px_2px_rgb(0_0_0_/_40%)]">
                 Have questions or need assistance? We're here to help you succeed 
                 in your agricultural journey.
               </p>
