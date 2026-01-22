@@ -1,31 +1,125 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Leaf, Eye, EyeOff } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useAuth } from "@/hooks/useAuth";
 
 const Login = () => {
   const { toast } = useToast();
   const { t } = useLanguage();
+  const { login } = useAuth();
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    remember: false,
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type, checked } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value
+    }));
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate login
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    try {
+      console.log('🔐 Mock login attempt for:', formData.email);
+      
+      // Mock authentication - simulate API delay
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // Mock user data based on email
+      const mockUsers = {
+        'john@example.com': {
+          id: 1,
+          first_name: 'John',
+          last_name: 'Doe',
+          full_name: 'John Doe',
+          email: 'john@example.com',
+          user_type: 'farmer' as const,
+          status: 'active' as const,
+          region: 'Dar es Salaam',
+          district: 'Kinondoni',
+          ward: 'Msasani',
+          phone: '+255123456789',
+          created_at: '2024-01-01T00:00:00Z'
+        },
+        'jane@example.com': {
+          id: 2,
+          first_name: 'Jane',
+          last_name: 'Smith',
+          full_name: 'Jane Smith',
+          email: 'jane@example.com',
+          user_type: 'extension_officer' as const,
+          status: 'active' as const,
+          region: 'Arusha',
+          district: 'Arusha Urban',
+          ward: 'Kaloleni',
+          phone: '+255987654321',
+          created_at: '2024-01-01T00:00:00Z'
+        },
+        'admin@example.com': {
+          id: 3,
+          first_name: 'Admin',
+          last_name: 'User',
+          full_name: 'Admin User',
+          email: 'admin@example.com',
+          user_type: 'extension_officer' as const,
+          status: 'active' as const,
+          region: 'Dodoma',
+          district: 'Dodoma Urban',
+          ward: 'Kikuyu',
+          phone: '+255555000000',
+          created_at: '2024-01-01T00:00:00Z'
+        }
+      };
 
-    toast({
-      title: "Login functionality",
-      description: "Backend integration required for authentication.",
-    });
+      const mockUser = mockUsers[formData.email as keyof typeof mockUsers];
+      
+      if (mockUser && formData.password === 'password123') {
+        const mockToken = `mock_token_${Date.now()}`;
+        login(mockUser, mockToken);
+        
+        toast({
+          title: "✅ Login successful",
+          description: `Welcome back, ${mockUser.first_name}!`,
+        });
 
-    setIsSubmitting(false);
+        console.log('✅ Mock login successful, redirecting...');
+        
+        // Redirect based on user type
+        setTimeout(() => {
+          if (formData.email === 'admin@example.com') {
+            navigate('/admin');
+          } else {
+            navigate('/dashboard');
+          }
+        }, 500);
+      } else {
+        throw new Error('Invalid credentials. Use password123 for any test account.');
+      }
+    } catch (error: unknown) {
+      console.error('❌ Login error:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Invalid credentials. Please try again.';
+      toast({
+        title: "❌ Login failed",
+        description: errorMessage,
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -63,6 +157,8 @@ const Login = () => {
                 name="email"
                 type="email"
                 placeholder="john@example.com"
+                value={formData.email}
+                onChange={handleInputChange}
                 required
               />
             </div>
@@ -80,6 +176,8 @@ const Login = () => {
                   name="password"
                   type={showPassword ? "text" : "password"}
                   placeholder="••••••••"
+                  value={formData.password}
+                  onChange={handleInputChange}
                   required
                 />
                 <button

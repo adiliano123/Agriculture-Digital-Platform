@@ -104,7 +104,7 @@ const Services = () => {
             style={{
               backgroundImage: "url('/src/assets/agric.jpg')",
             }}
-          />
+          />``
           {/* Overlay */}
           <div className="absolute inset-0 bg-gradient-to-r from-primary/40 to-secondary/40" />
           {/* Additional subtle overlay for better text contrast */}

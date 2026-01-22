@@ -15,6 +15,8 @@ const Header = () => {
     { name: t.about, path: "/about" },
     { name: t.services, path: "/services" },
     { name: t.contact, path: "/contact" },
+    { name: "Dashboard", path: "/dashboard" },
+    { name: "Admin", path: "/admin" },
   ];
 
   const isActive = (path: string) => location.pathname === path;

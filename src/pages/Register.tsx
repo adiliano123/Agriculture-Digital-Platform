@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -13,26 +13,118 @@ import {
 import { Leaf, Eye, EyeOff } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useAuth } from "@/hooks/useAuth";
+import { RegisterData, User } from "@/types/auth";
 
 const Register = () => {
   const { toast } = useToast();
   const { t } = useLanguage();
+  const { login } = useAuth();
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState<RegisterData & { password_confirmation: string; terms: boolean }>({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    password: "",
+    password_confirmation: "",
+    userType: "farmer",
+    region: "",
+    district: "",
+    ward: "",
+    terms: false,
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type, checked } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value
+    }));
+  };
+
+  const handleSelectChange = (name: string, value: string | boolean) => {
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate registration
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    if (formData.password !== formData.password_confirmation) {
+      toast({
+        title: "Password mismatch",
+        description: "Passwords do not match. Please try again.",
+        variant: "destructive",
+      });
+      setIsSubmitting(false);
+      return;
+    }
 
-    toast({
-      title: "Registration functionality",
-      description: "Backend integration required for user registration.",
-    });
+    if (!formData.terms) {
+      toast({
+        title: "Terms required",
+        description: "Please accept the terms and conditions.",
+        variant: "destructive",
+      });
+      setIsSubmitting(false);
+      return;
+    }
 
-    setIsSubmitting(false);
+    try {
+      console.log('📝 Mock registration attempt for:', formData.email);
+      
+      // Mock registration - simulate API delay
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      // Check if email already exists (mock validation)
+      const existingEmails = ['john@example.com', 'jane@example.com', 'admin@example.com'];
+      if (existingEmails.includes(formData.email)) {
+        throw new Error('Email already exists. Please use a different email address.');
+      }
+      
+      // Create mock user
+      const mockUser: User = {
+        id: Math.floor(Math.random() * 1000) + 100,
+        first_name: formData.firstName,
+        last_name: formData.lastName,
+        full_name: `${formData.firstName} ${formData.lastName}`,
+        email: formData.email,
+        phone: formData.phone,
+        user_type: formData.userType,
+        status: 'active',
+        region: formData.region,
+        district: formData.district,
+        ward: formData.ward,
+        created_at: new Date().toISOString()
+      };
+      
+      const mockToken = `mock_token_${Date.now()}`;
+      login(mockUser, mockToken);
+      
+      toast({
+        title: "Registration successful",
+        description: `Welcome to ADINAS, ${mockUser.first_name}!`,
+      });
+
+      console.log('✅ Mock registration successful, redirecting...');
+      navigate('/dashboard');
+    } catch (error: unknown) {
+      console.error('❌ Registration error:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Registration failed. Please try again.';
+      toast({
+        title: "Registration failed",
+        description: errorMessage,
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -86,6 +178,8 @@ const Register = () => {
                   id="firstName"
                   name="firstName"
                   placeholder="John"
+                  value={formData.firstName}
+                  onChange={handleInputChange}
                   required
                 />
               </div>
@@ -100,6 +194,8 @@ const Register = () => {
                   id="lastName"
                   name="lastName"
                   placeholder="Doe"
+                  value={formData.lastName}
+                  onChange={handleInputChange}
                   required
                 />
               </div>
@@ -117,6 +213,8 @@ const Register = () => {
                 name="email"
                 type="email"
                 placeholder="john@example.com"
+                value={formData.email}
+                onChange={handleInputChange}
                 required
               />
             </div>
@@ -133,6 +231,8 @@ const Register = () => {
                 name="phone"
                 type="tel"
                 placeholder="+255 xxx xxx xxx"
+                value={formData.phone}
+                onChange={handleInputChange}
                 required
               />
             </div>
@@ -144,15 +244,15 @@ const Register = () => {
               >
                 I am a
               </label>
-              <Select name="userType" required>
+              <Select value={formData.userType} onValueChange={(value) => handleSelectChange('userType', value)} required>
                 <SelectTrigger>
                   <SelectValue placeholder="Select your role" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="farmer">Farmer</SelectItem>
-                  <SelectItem value="extension-officer">Extension Officer</SelectItem>
-                  <SelectItem value="agri-dealer">Agri Dealer</SelectItem>
-                  <SelectItem value="agri-company">Agri Company</SelectItem>
+                  <SelectItem value="extension_officer">Extension Officer</SelectItem>
+                  <SelectItem value="agri_dealer">Agri Dealer</SelectItem>
+                  <SelectItem value="agri_company">Agri Company</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -170,6 +270,8 @@ const Register = () => {
                   name="password"
                   type={showPassword ? "text" : "password"}
                   placeholder="••••••••"
+                  value={formData.password}
+                  onChange={handleInputChange}
                   required
                 />
                 <button
@@ -186,8 +288,33 @@ const Register = () => {
               </div>
             </div>
 
+            <div className="space-y-2">
+              <label
+                htmlFor="password_confirmation"
+                className="text-sm font-medium text-foreground"
+              >
+                Confirm Password
+              </label>
+              <Input
+                id="password_confirmation"
+                name="password_confirmation"
+                type="password"
+                placeholder="••••••••"
+                value={formData.password_confirmation}
+                onChange={handleInputChange}
+                required
+              />
+            </div>
+
             <div className="flex items-start gap-2">
-              <Checkbox id="terms" required className="mt-0.5" />
+              <Checkbox 
+                id="terms" 
+                name="terms"
+                checked={formData.terms}
+                onCheckedChange={(checked) => handleSelectChange('terms', checked as boolean)}
+                required 
+                className="mt-0.5" 
+              />
               <label
                 htmlFor="terms"
                 className="text-sm text-muted-foreground cursor-pointer"
